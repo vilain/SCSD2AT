@@ -1,0 +1,107 @@
+{
+	"name": "SC-Two-Obligations",
+	
+	"states": {
+		"initial": "initial",
+		"created": "created",
+		"in_effect": "in_effect",
+		"active": "active",
+        "suspended": "suspended",
+		"successful_termination": "successful_termination",
+		"unsuccessful_termination": "unsuccessful_termination"
+	},
+    
+    "parties": [
+        {"name" : "party 1",
+            "obligations" : ["obligation 1"],
+            "powers" : ["power 1"] },
+        {"name" : "party 2",
+            "obligations" : ["obligation 2"],
+            "powers" : ["power 3"] }
+    ],
+    
+	
+	"transitions": {
+	
+		"create contract": {
+			"source": "initial",
+			"target": "created",
+			"event": "create",
+		},
+		
+		"activate contract":{
+			"source": "created",
+			"target": "in_effect",	
+			"event": "activate",
+  			"obligations_to_be_activated": ["obligation 1", "obligation 2"],
+	 		"powers_to_be_activated": ["power 1", "power 3"]
+		},
+        
+        "activate obligation": {
+			"source": "in_effect",
+			"target": "in_effect",
+			"event": "activate_obligation",
+            "set_of_obligations_that_can_be_activated": [
+                ["obligation 20", "power 1"]
+                ["obligation 30", "power 1"]
+              ]
+		},
+		
+        "activate power": {
+            "source": "in_effect",
+            "target": "in_effect",
+            "event": "activate_power",
+            "set_of_powers_that_can_be_activated": [
+                  ["power 10", "power 1"],
+                  ["power 20", "power 1"]
+              ]
+        },
+        
+		"suspend contract":{
+			"source": "in_effect",
+			"target": "suspended",	
+			"event": "suspend",
+  			"powers_that_suspend_the_contract": 
+  				["power 3"]
+		},
+				
+		"resume contract":{
+			"source": "suspended",
+			"target": "in_effect",	
+			"event": "resume",
+            "powers_that_resume_the_contract":
+  				["power 20"]
+ 		},
+        
+        "replace party": {
+            "source": "active",
+            "target": "active",
+            "event": "replace_party",
+            "power_that_replace_a_party": "power 1"
+            "parties_that_can_be_replaced": [
+                ["party 1", "party 10", "obligation 1"],
+                ["party 2", "party 20", "obligation 2"]
+            ]
+        },
+        
+        "fulfill active obligations": {
+            "source": "in_effect",
+            "target": "successful_termination",
+			"lists_obligations_to_be_fulfilled": [
+				["obligation 1", "obligation 2"]
+			],
+            "surviving_obligations_to_be_activated":
+                ["surviving obligation 1", "surviving obligation 2"]
+		},
+
+        "terminate contract": {
+			"source": "active",
+			"target": "unsuccessful_termination",	
+			"event": "terminate",
+			"list_powers": ["~obligation 1 AND power 2"]
+		}
+		
+	}
+	
+}
+

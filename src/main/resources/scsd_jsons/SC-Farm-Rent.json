@@ -1,0 +1,56 @@
+{
+	"name": "SC_Farm_Rent",
+	
+	"states": {
+		"initial": "initial",
+		"created": "created",
+		"in_effect": "in_effect",
+		"active": "active",
+		"successful_termination": "successful_termination",
+		"unsuccessful_termination": "unsuccessful_termination"
+	},
+	
+    
+    "parties": [
+        {"name" : "UFSC",
+            "obligations" : ["ob 2.B", "ob 5.u"] },
+        {"name" : "Locador",
+            "obligations" : ["ob 3.A", "ob 3.B", "ob 3.G"] }
+    ],
+    
+    
+	"transitions": {
+	
+		"create contract": {
+			"source": "initial",
+			"target": "created",
+			"event": "create"
+		},
+		
+		"activate contract":{
+			"source": "created",
+			"target": "in_effect",	
+			"event": "activate",
+  			"obligations_to_be_activated": ["ob 3.A", "ob 3.B", "ob 3.G", "ob 5.u"]
+		},
+			
+		"fulfill active obligations": {
+			"source": "in_effect",
+			"target": "successful_termination",	
+            "lists_obligations_to_be_fulfilled": [
+				["ob 3.A", "ob 3.B", "ob 3.G", "ob 5.u"]
+			],
+            "surviving_obligations_to_be_activated": ["ob 5.u"]
+		},
+		
+		"terminate contract": {
+			"source": "active",
+			"target": "unsuccessful_termination",
+            "list_powers": ["~ob 3.A", "~ob 3.B", "~ob 3.G", "~ob 5.u"],
+            "penalties": ["ob 2.B", "Pen 9.U"]
+		}
+		
+	}
+	
+}
+

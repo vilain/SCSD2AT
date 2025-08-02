@@ -1,0 +1,53 @@
+{
+	"name": "SC-No-Created-State",
+	
+	"states": {
+		"initial": "initial",
+		"in_effect": "in_effect",
+		"active": "active",
+		"successful_termination": "successful_termination",
+        "unsuccessful_termination": "unsuccessful_termination"
+	},
+    
+    "parties": [
+        {"name" : "party 1",
+            "obligations" : ["obligation 1"],
+            "powers" : ["power 1"] },
+        {"name" : "party 2",
+            "obligations" : ["obligation 2"],
+            "powers" : ["power 3"] }
+    ],
+	
+    
+	"transitions": {
+	
+		"create activate contract": {
+			"source": "initial",
+			"target": "in_effect",
+			"event": "create_activate_contract",
+            "obligations_to_be_activated": ["obligation 1", "obligation 2"],
+            "powers_to_be_activated": ["power 1", "power 3"]
+		},
+		
+        
+		"fulfill active obligations": {
+			"source": "in_effect",
+			"target": "successful_termination",	
+			"lists_obligations_to_be_fulfilled": [
+				["obligation 2"],
+                ["obligation 1"]
+			],
+            "surviving_obligations_to_be_activated": ["surviving obligation 1"]
+		},
+        
+		"terminate contract": {
+			"source": "active",
+			"target": "unsuccessful_termination",	
+			"list_powers": ["~obligation 1 AND power 2"]
+            "penalties": ["penalty 1", "penalty 2"]
+		}
+		
+	}
+	
+}
+

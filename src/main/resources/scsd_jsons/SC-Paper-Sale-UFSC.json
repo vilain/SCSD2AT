@@ -1,0 +1,67 @@
+{
+	"name": "SC_Paper_Sale_UFSC",
+	
+	"states": {
+		"initial": "initial",
+		"created": "created",
+		"in_effect": "in_effect",
+		"active": "active",
+		"successful_termination": "successful_termination",
+		"unsuccessful_termination": "unsuccessful_termination"
+	},
+
+    
+    "parties": [
+        {"name" : "UFSC",
+            "obligations" : ["ob 7.5", "ob 7.6"],
+            "powers" : ["pow 11.2.2"] },
+        {"name" : "Dicapel",
+            "obligations" : ["ob 2.2", "ob 5.1", "ob 5.6"],
+            "powers" : ["pow 11.2.2"] }
+    ],
+
+    
+	"transitions": {
+	
+		"create contract": {
+			"source": "initial",
+			"target": "created",
+			"event": "create",
+		},
+		
+		"activate contract":{
+			"source": "created",
+			"target": "in_effect",	
+			"event": "activate",
+  			"obligations_to_be_activated": ["ob 2.2", "ob 5.1", "ob 5.6", "ob 7.5"],
+ 	 		"powers_to_be_activated": ["pow 11.2.2"]
+		},
+        
+		"activate obligation": {
+			"source": "in_effect",
+			"target": "in_effect",
+			"event": "activate_obligation",
+			"set_of_obligations_that_can_be_activated": [
+  				["ob 7.6", "~ob 7.5"]
+  			]
+		},
+				
+		"fulfill active obligations": {
+			"source": "in_effect",
+			"target": "successful_termination",	
+            "lists_obligations_to_be_fulfilled": [
+				["ob 2.2", "ob 5.1", "ob 7.5"],
+				["ob 5.6", "ob 5.1", "ob 7.5"],
+				["ob 2.2", "ob 5.1", "ob 7.6"]
+			]	
+		},
+		
+		"terminate contract": {
+			"source": "active",
+			"target": "unsuccessful_termination",	
+            "list_powers": ["pow 11.2.2", "ob 2.2 AND ob 5.1 AND ~ob 7.5"]
+		}
+	}
+	
+}
+
