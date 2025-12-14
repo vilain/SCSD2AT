@@ -51,23 +51,22 @@ public class ATTemplateGenerator {
 				writer.println("Scenario: Create the " + this.scsd.getName() + " contract");
 				writer.println("Given <all information about the smart contract>");
 				writer.println("When <the contract is created>");
-				writer.println("Then <assure that the contract is correct and not activated>");
+				writer.println("Then <assure that the contract is correctly initialized and not activated>");
 				writer.println();
 
 				writer.println("Scenario: Activate the " + this.scsd.getName() + " contract");
 				writer.println("Given <all information about the smart contract>");
 				writer.println("And <the contract is created>");
 				writer.println("When <the contract is activated>");
-				writer.println("Then <assure that the contract is corrected and activated>");
-
+				writer.println("Then <assure that the contract is is correctly initialized and activated>");
 			}
 			
 			else {
 			
 				writer.println("Scenario: Activate the " + this.scsd.getName() + " contract");
 				writer.println("Given <all information about the smart contract>");
-				writer.println("And <the contract is created>");
-				writer.println("Then <assure that the contract is corrected and activated>");
+				writer.println("When <the contract is created>");
+				writer.println("Then <assure that the contract is correctly initialized and activated>");
 			}
 						
 			this.activeObligations = this.scsd.getObligationsActivated();
@@ -82,7 +81,7 @@ public class ATTemplateGenerator {
 			e.printStackTrace();
 		}					
 	}
-		
+
 	
 	private void generateObligationActivationFeature() {
 		PrintWriter writer = null;
@@ -231,10 +230,10 @@ public class ATTemplateGenerator {
 		String power = this.scsd.getPowerThatReplaceParties();
 		if (power != "") {
 		try {
-			String path = "src/main/generated-templates/" + this.scsd.getName() + "-PartyRevocation.feature";
+			String path = "src/main/generated-templates/" + this.scsd.getName() + "-PartyReplacement.feature";
 			writer = new PrintWriter(path, "UTF-8");			
 			
-			writer.println("Feature: " + this.scsd.getName() + " Party Revocation");
+			writer.println("Feature: " + this.scsd.getName() + " Party Replacement");
 			writer.println();
 			writer.println("Background:");
 			writer.println("Given <smart contract setup, including participants>");
@@ -290,7 +289,6 @@ public class ATTemplateGenerator {
 //			the text of an obligation.
 			
 			List listOfListObligations = (List) this.scsd.getObligationsFulfilled();
-			List listOfSurvivingObligations = (List) this.scsd.getSurvivingObligations();
 			for (int count_scenarios = 1; count_scenarios <= listOfListObligations.size(); count_scenarios++) {
 				List listObligations = (List) listOfListObligations.get(count_scenarios-1);
 				
@@ -300,12 +298,8 @@ public class ATTemplateGenerator {
 				for (int countObligations = 1; countObligations < listObligations.size(); countObligations++) {
 					writer.println("And <" + listObligations.get(countObligations) + " is fulfilled>");
 				}	
-				if (!listOfSurvivingObligations.isEmpty()) {
-					for (int countSurvivingObligations = 0; countSurvivingObligations < listOfSurvivingObligations.size(); countSurvivingObligations++) {
-						writer.println("And <" + listOfSurvivingObligations.get(countSurvivingObligations) + " is fulfilled>");
-					}	
-				}
 				writer.println("Then <assure that the contract is successfully terminated>");
+				writer.println("Then <assure that the surviving obligations are activated>");
 				writer.println();	
 				
 			}
@@ -317,7 +311,6 @@ public class ATTemplateGenerator {
 		}		
 	}
 
-	
 	
 	private void generateUnsuccessfulTerminationFeature() {
 		PrintWriter writer = null;
