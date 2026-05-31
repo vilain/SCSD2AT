@@ -1,4 +1,4 @@
-package br.ufsc.leb.SCSD2AT;
+package scsd2at;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

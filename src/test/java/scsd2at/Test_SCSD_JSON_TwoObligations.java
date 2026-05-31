@@ -1,4 +1,4 @@
-package br.ufsc.leb.SCSD2AT;
+package scsd2at;
 
 import java.util.List;
 import java.util.Map;
@@ -6,6 +6,9 @@ import java.util.Map;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import scsd2at.ATTemplateGenerator;
+import scsd2at.SCSD;
+import scsd2at.SCSD_JSON;
 
 
 public class Test_SCSD_JSON_TwoObligations extends TestCase {

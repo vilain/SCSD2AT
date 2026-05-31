@@ -1,4 +1,4 @@
-package br.ufsc.leb.SCSD2AT;
+package scsd2at;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -58,7 +58,7 @@ public class ATTemplateGenerator {
 				writer.println("Given <all information about the smart contract>");
 				writer.println("And <the contract is created>");
 				writer.println("When <the contract is activated>");
-				writer.println("Then <assure that the contract is is correctly initialized and activated>");
+				writer.println("Then <assure that the contract is correctly initialized and activated>");
 			}
 			
 			else {

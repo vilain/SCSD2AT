@@ -13,9 +13,9 @@
     
     "parties": [
         {"name" : "UFSC",
-            "obligations" : ["ob 2.B", "ob 5.u"] },
+            "obligations" : ["oblig 1", "oblig 3"] },
         {"name" : "Locador",
-            "obligations" : ["ob 3.A", "ob 3.B", "ob 3.G"] }
+            "obligations" : ["oblig 4", "oblig 5", "oblig 6"] }
     ],
     
     
@@ -31,23 +31,23 @@
 			"source": "created",
 			"target": "in_effect",	
 			"event": "activate",
-  			"obligations_to_be_activated": ["ob 3.A", "ob 3.B", "ob 3.G", "ob 5.u"]
+  			"obligations_to_be_activated": ["oblig 4", "oblig 5", "oblig 6", "oblig 3"]
 		},
 			
 		"fulfill active obligations": {
 			"source": "in_effect",
 			"target": "successful_termination",	
             "lists_obligations_to_be_fulfilled": [
-				["ob 3.A", "ob 3.B", "ob 3.G", "ob 5.u"]
+				["oblig 4", "oblig 5", "oblig 6", "oblig 3"]
 			],
-            "surviving_obligations_to_be_activated": ["ob 5.u"]
+            "surviving_obligations_to_be_activated": ["oblig 3"]
 		},
 		
 		"terminate contract": {
 			"source": "active",
 			"target": "unsuccessful_termination",
-            "list_powers": ["~ob 3.A", "~ob 3.B", "~ob 3.G", "~ob 5.u"],
-            "penalties": ["ob 2.B", "Pen 9.U"]
+            "list_powers": ["~oblig 4", "~oblig 5", "~oblig 6", "~oblig 3"],
+            "penalties": ["oblig 1", "penalty 1"]
 		}
 		
 	}

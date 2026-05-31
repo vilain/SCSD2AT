@@ -1,4 +1,4 @@
-package br.ufsc.leb.SCSD2AT;
+package scsd2at;
 
 import java.util.List;
 import java.util.Map;
